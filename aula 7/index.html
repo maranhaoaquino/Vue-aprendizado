@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+    <!--
+  Utilizando a API
+  https://api.origamid.dev/stock/aapl/quote
+
+  Crie um método que faça o fetch da resposta acima
+  O método deve ser ativado ao clique no botão Ver Preço
+
+  Coloque a resposta json do fetch em uma data e
+  mostre o valor de lalestPrice, latestTime e o
+  companyName na interface.
+-->
+    <style>
+        .verde{
+            color: green;
+        }
+        .vermelho{
+            color: red;
+        }
+    </style>
+    <div id="app">
+        <div>
+            <p :class="apple.marketCap > google.marketCap ? 'verde' : 'vermelho'">{{apple.companyName}}, {{apple.marketCap}}</p>
+        </div>
+        <div>
+            <p :class="google.marketCap > apple.marketCap ? 'verde' : 'vermelho'">{{google.companyName}}, {{google.marketCap}}</p>
+        </div>
+        <button @click="puxarDados">Ver Preço</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                apple: {},
+                google: {},
+            },
+            methods: {
+                puxarAcoes(){
+                    fetch("https://api.origamid.dev/stock/aapl/quote")
+                        .then(response => response.json())
+                        .then(json => {
+                            this.apple = json;
+                            console.log(json);
+                        })
+                },
+                puxarAcoes2(){
+                    fetch("https://api.origamid.dev/stock/googl/quote")
+                        .then(response => response.json())
+                        .then(json => {
+                            this.google = json;
+                            console.log(json);
+                        })
+                },
+                puxarDados(){
+                    this.puxarAcoes();
+                    this.puxarAcoes2();
+                },
+            }
+        });
+    </script>
+</body>
+</html>

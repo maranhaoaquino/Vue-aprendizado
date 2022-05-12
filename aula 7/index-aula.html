@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+   <!--
+  Utilizando as API's
+  https://api.origamid.dev/stock/aapl/quote
+  https://api.origamid.dev/stock/googl/quote
+
+  - Compare o marketCap (valor de
+  mercado) entre ambas.
+
+  - Mostre o nome das empresas e o valor
+  na interace (companyName e marketCap).
+
+  - Mude a cor para verde o nome da empresa com
+  maior marketCap e vermelho a com menor.
+-->
+
+    <div id="app">
+        <a :href="link">Link Google</a>
+        <p :class="cor" class="ativo">Texto</p>
+        <p :class="comprou ? liberar : naoliberar">O cliente comprou?</p>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                link: "https://google.com",
+                cor: "azul",
+                liberar: "verde",
+                naoliberar: "vermelho",
+                comprou: true,
+            }
+        })
+    </script>
+</body>
+</html>
