@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+    
+    <div id="app">
+        <ul>
+            <li><a href="https://api.origamid.dev/stock/aapl/quote" @click.prevent="puxarAcoes">Apple</a></li>
+            <li><a href="https://api.origamid.dev/stock/googl/quote" @click.prevent="puxarAcoes">Google</a></li>
+            <li><a href="https://api.origamid.dev/stock/amzn/quote" @click.prevent="puxarAcoes">Amazon</a></li>
+            <li><a href="https://api.origamid.dev/stock/ebay/quote" @click.prevent="puxarAcoes">Ebay</a></li>
+            <li><a href="https://api.origamid.dev/stock/pypl/quote" @click.prevent="puxarAcoes">Paypal</a></li>
+          </ul>
+          
+          <div>{{acoes.companyName}}, {{acoes.latestPrice}}, {{acoes.marketCap}}</div>
+          <!--
+            Utilizando API
+            https://api.origamid.dev/stock/aapl/quote
+          
+            Adicione um evento de clique a cada <a> do html
+            acima e previna o comportamento padrão.
+          
+            Faça o fetch dos dados do href ao click e mostre na
+            interface o companyName, latestPrice, marketCap
+          -->
+          
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                acoes: {}
+            },
+            methods: {
+                puxarAcoes(event){
+                    const link = event.currentTarget.href;
+                    console.log(link);
+                    fetch(link)
+                        .then(response => response.json())
+                        .then(json => {
+                            this.acoes = json;
+                            console.log(json);
+                        })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
