@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+
+    <div id="app">
+        <ul>
+            <li v-for="(fruta, index) in frutas">{{fruta}} {{index}}</li>
+        </ul>
+        <ul>
+            <li v-for="(estado, key, index) in estados" :key="key">{{index}}- {{key}}, {{estado.nome}}, {{estado.populacao}}</li>
+        </ul>
+        <div v-for="n in 5">{{n}}</div>
+        <ul>
+            <li v-for="item in lista">{{item}}</li>
+        </ul>
+        <button @click="removerItem">Remover</button>
+        <button @click="mudarItemReativo">Mudar Reativo</button>
+        <button @click="mudarItemNaoReativo">Mudar Nao Reativo</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                frutas: ["Banana", "Uva", "Laranja"],
+                lista: ["Item 1", "Item 2", "Item 3"],
+                estados: {
+                sp: {
+                    populacao: "45 milhões",
+                    nome: "São Paulo"
+                },
+                mg: {
+                    populacao: "21 milhões",
+                    nome: "Minas Gerais"
+                },
+                rj: {
+                    populacao: "17 milhões",
+                    nome: "Rio de Janeiro"
+                }
+                }
+            },
+            methods: {
+                removerItem(){
+                    this.lista.pop(); //Ativa reatividade
+                },
+                mudarItemReativo(){
+                    this.$set(this.lista, 1, "Uva") //Ativa reatividade
+                },
+                mudarItemNaoReativo(){
+                    this.lista[0] = "Banana"; //Não ativa a reatividade
+                }
+            }
+        });
+    </script>
+</body>
+</html>
