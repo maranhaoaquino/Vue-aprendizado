@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+    <!--
+  Você possui o nome e sobrenome do usuário em data,
+  crie uma propriedade computed que retorne o nome completo
+  
+  Utilize a rest API para puxar as capitais dos paises
+  Use um campo de select, onde o usuário pode selecionar o país.
+  https://restcountries.com/v2/all
+
+  Com uma função watch, mude a capital de acordo com o país selecionado:
+
+  Ex de campo select:
+
+  <select name="paises" id="paises" v-model="selecionado">
+    <option v-for="pais in paises" :value="pais.name">
+      {{pais.name}}
+    </option>
+  </select>
+-->
+    <div id="app">
+        <input type="text" placeholder="nome" v-model="nome">
+        <input type="text" placeholder="sobrenome" v-model="sobrenome">
+        <h1>{{nomeCompleto}}</h1>
+        <hr>
+        <button @click="puxarPaises">Puxar paises</button>
+        <select name="paises" id="paises" v-model="selecionado">
+            <option v-for="pais in paises" :value="pais.name">
+              {{pais.name}}
+            </option>
+        </select>
+          <h1>{{selecionado}}</h1>
+          <h2>{{capital}}</h2>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                nome: "",
+                sobrenome: "",
+                selecionado: "",
+                paises: {},
+                capital: ""
+            },
+            methods: {
+                puxarPaises(){
+                    fetch(`https://restcountries.com/v2/all`)
+                        .then(r => r.json())
+                        .then(r => {
+                            this.paises = r;
+                    });
+                }
+            },
+            computed: {
+                nomeCompleto(){
+                    return this.nome + " " +this.sobrenome;
+                }
+            },
+            watch: {
+                selecionado(valor){
+                    this.capital = this.paises.find((pais) => pais.name === valor).capital;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
