@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+  
+    <div id="app">
+        <input v-model="nome" />
+        <textarea v-model="mensagem"></textarea>
+        <p>{{nome}}</p>
+        <p>{{mensagem}}</p>
+        <hr>
+        <input v-model="nome2" />
+        <input :value="email" />
+        <input type="checkbox" v-model="receberEmail">
+        <p>nome: {{nome2}}</p>
+        <p>email: {{email}}</p>
+        <p>Receber Email: {{receberEmail}}</p>
+        <hr>
+        <div>
+            <input type="radio" v-model="cor" value="Azul" id="azul" />
+            <label for="azul">Azul</label><br />
+            <input type="radio" v-model="cor" value="Vermelho" id="vermelho" />
+            <label for="vermelho">Vermelho</label>
+            <input type="radio" v-model="cor" value="Verde" id="verde" />
+            <label for="verde">Verde</label>
+
+            <p>cor: {{cor}}</p>
+        </div>
+        <hr>
+        <div>
+            <select v-model="fruta">
+                <option disabled value="">Selecione uma fruta</option>
+                <option value="banana">Banana</option>
+                <option value="morango">Morango</option>
+                <option value="uva">Uva</option>
+              </select>
+            
+              <p>fruta: {{fruta}}</p>
+        </div>
+        <hr>
+        <input type="text" v-model.number="ano"/>
+        {{ano * 2}}
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data:{
+                nome: "",
+                mensagem: "",
+                nome2: "alice",
+                email: "email@email.com",
+                receberEmail: "",
+                cor: "",
+                fruta: "",
+                ano: ""
+            }
+        });
+    </script>
+
+    <style>
+        
+    </style>
+</body>
+</html>

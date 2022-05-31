@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+  <!-- 
+  1 - Crie um criador de botões.
+
+  O usuário poderá definir:
+  width,
+  height,
+  font-size,
+  font-family,
+  text-align,
+  background,
+  color,
+  border-radius,
+
+  As escolhas serão feitas em campos de
+  formulário. Cada escolha deverá ser 
+  refletida em um elemento (o botão).
+
+
+  2 - Crie um formulário com, nome, email, telefone e mensagem.
+  Ao clicar em enviar, as informações preenchidas no formulário
+  devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+ -->
+
+    <div id="app">
+        <label for="width">Width</label>
+        <input type="text" name="width" v-model="estiloBotao.width"/>
+        <label for="height">Height</label>
+        <input type="text" name="height" v-model="estiloBotao.height"/>
+        <label for="font-size">Font Size</label>
+        <input type="text" name="font-size" v-model="estiloBotao.fontSize"/>
+        <label for="font-family">Font family</label>
+        <input type="text" name="font-family" v-model="estiloBotao.fontFamily"/>
+        <label for="text-align">Text Align</label>
+        <input type="text" name="text-align" v-model="estiloBotao.textAlign"/>
+        <label for="background">Background</label>
+        <input type="color" name="background" v-model="estiloBotao.background"/>
+        <label for="color">Color</label>
+        <input type="color" name="color" v-model="estiloBotao.color"/>
+        <label for="border-radius">Border Radius</label>
+        <input type="text" name="border-radius" v-model="estiloBotao.borderRadius"/>
+        <a :style="estiloBotao" href="">Clique Aqui</a>
+        <hr>
+        <form>
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" v-model="forms.nome"/>
+            <label for="email">E-mail</label>
+            <input type="email" name="email" v-model="forms.email"/>
+            <label for="telefone">Telefone</label>
+            <input type="text" name="telefone" v-model="forms.telefone"/>
+            <label for="msg">Mensagem</label>
+            <textarea name="mensagem" v-model="forms.mensagem"></textarea>
+            <br>
+            <input @click.prevent="enviarFormulario" type="submit"/>
+        </form>
+        <br>
+        {{resultado}}
+        <br>
+        {{forms}}
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data:{
+                estiloBotao:{
+                    width: "300px",
+                    height: "50px",
+                    background: "#000000",
+                    color: "#ffffff",
+                    fontSize: "16px",
+                    textAlign: "left",
+                    borderRadius:"8px",
+                    fontFamily:"monospace"
+                },
+                forms: {
+                    nome: "",
+                    email: "",
+                    telefone: "",
+                    mensagem: ""
+                },
+                resultado: {}
+            },
+            methods: {
+                enviarFormulario(){
+                    this.resultado = {
+                        nome: this.forms.nome,
+                        email: this.forms.email,
+                        telefone: this.forms.telefone,
+                        mensagem: this.forms.mensagem
+                    }
+                }
+            }
+        });
+    </script>
+
+    <style>
+        label{
+            display: block;
+        }
+        a{
+            display: block;
+            margin-top: 100px;
+        }
+    </style>
+</body>
+</html>
