@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+
+    <div id="app">
+        <p>{{mensagem}}</p>
+        <div>{{github}}</div>
+        <button @click="contador++">{{contador}}</button>
+        <button @click="destruir">Destruir</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data:{
+                mensagem: "Essa é uma mensagem",
+                github: {},
+                contador: 0
+            },
+            methods: {
+                puxarGithub(){
+                    fetch("https://api.github.com/users/origamid")
+                    .then(r => r.json())
+                    .then(r => {
+                        this.github =r;
+                    })
+                },
+                destruir(){
+                    this.$destroy();
+                }
+            },
+            beforeCreate (){
+                console.log("Antes da criação")
+                console.log(this.mensagem)
+            },
+            created(){
+                console.log("Foi criado")
+                console.log(this.mensagem)
+                this.puxarGithub();
+                console.log("Elemento", this.$el);
+            },
+            beforeMount(){
+                console.log("BeforeMounth: ", this.mensagem);
+                console.log("Elemento", this.$el);
+            },
+            mounted(){
+                console.log("Mounth: ", this.mensagem);
+                console.log("Elemento", this.$el);
+            },
+            beforeUpdate(){
+                console.log(this.contador);
+            },
+            updated(){
+                console.log(this.contador);
+            },
+            beforeDestroy(){
+                console.log("antes de destruir");
+            },
+            destroyed(){
+                console.log("destruido");
+            }
+        });
+    </script>
+    <style>
+    </style>
+</body>
+</html>
