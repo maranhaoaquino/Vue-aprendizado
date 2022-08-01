@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<body>
+
+    <div id="app">
+        {{lista}}
+        <lista-produtos :frutas="lista" titulo="Esse é o titulo"></lista-produtos>
+    </div>
+
+    <script type="module">
+        const ItemProduto = {
+            name: "ItemProduto",
+            //props: ["nomeFruta", "total"],
+            props:{
+                nomeFruta: String,
+                total: Number,
+                cor: {
+                    type: String,
+                    required: true,
+                },
+                tamanho: {
+                    type: String,
+                    default: "Grande"
+                }
+            },
+            template: `
+            <li>
+                <h2>{{nomeFruta}}</h2>
+                Esse é o nome: {{nomeFruta}}
+                {{total + 2}}
+                {{cor}}
+                {{tamanho}}
+            </li>
+            `
+        }
+
+        const ListaProdutos = {
+            name: "ListaProdutos",
+            props:["frutas", "titulo"],
+            components:{
+                ItemProduto
+            },
+            template: `
+            <ul>
+                <h1>{{titulo}}</h1>
+                <item-produto 
+                    v-for="fruta, index in frutas" 
+                    :key="fruta + index" 
+                    :nomeFruta="fruta"
+                    :total="20"
+                    cor="Azul"
+                    tamanho="pequeno"
+                ></item-produto>
+            </ul>
+            `
+        }
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                lista: ["Banana", "Laranja", "Uva"]
+            },
+            components: {
+                ListaProdutos
+            }
+        })
+    </script>
+</body>
+</html>
